@@ -1,4 +1,26 @@
-FROM node:lts
+FROM node:lts AS builder
+
+# Instalar pnpm globalmente
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+COPY tsconfig.json ./
+
+# Instalar todas as dependências (incluindo devDependencies para build)
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+# Build da aplicação
+RUN pnpm run build
+
+# Stage de produção
+FROM node:lts AS production
+
+# Instalar pnpm globalmente
+RUN npm install -g pnpm
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -17,13 +39,12 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
 
 WORKDIR /app
 
-COPY package*.json ./
-COPY tsconfig.json ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN npm ci --only=production
+# Instalar apenas dependências de produção
+RUN pnpm install --frozen-lockfile --prod
 
-COPY . .
-
-RUN npm run build
+# Copiar o código compilado do stage anterior
+COPY --from=builder /app/dist ./dist
 
 CMD ["node", "dist/index.js"]

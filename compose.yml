@@ -1,0 +1,74 @@
+services:
+  sigaa-scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sigaa-scraper
+    volumes:
+      # Monta o diretório local para salvar screenshots e logs
+      - ./output:/app/output
+      - ./logs:/app/logs
+    environment:
+      # Variáveis para configurar o Puppeteer no Docker
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+      - CHROME_BIN=/usr/bin/chromium
+      - CHROME_PATH=/usr/lib/chromium/
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+      - PUPPETEER_PRODUCT=chrome
+      - CHROMIUM_FLAGS=--disable-software-rasterizer --disable-dev-shm-usage
+      # Variáveis para configurar o comportamento da aplicação
+      - NODE_ENV=production
+      - HEADLESS=true
+    # Configurações de segurança necessárias para o Chromium
+    security_opt:
+      - seccomp:unconfined
+    shm_size: 2gb
+    # Reinicia automaticamente se falhar
+    restart: unless-stopped
+    # Configurações de rede (caso precise acessar de fora)
+    # ports:
+    #   - "3000:3000"  # Descomente se a aplicação tiver um servidor web
+    
+    # Comando personalizado (opcional, já está definido no Dockerfile)
+    # command: ["node", "dist/index.js"]
+
+  # Serviço opcional para desenvolvimento
+  sigaa-scraper-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder  # Usa o stage de build que tem todas as dependências
+    container_name: sigaa-scraper-dev
+    volumes:
+      # Para desenvolvimento, monta o código fonte
+      - .:/app
+      - /app/node_modules
+      - ./output:/app/output
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=development
+      - HEADLESS=false  # Para debug visual
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+      - CHROME_BIN=/usr/bin/chromium
+      - CHROME_PATH=/usr/lib/chromium/
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+      - PUPPETEER_PRODUCT=chrome
+      - CHROMIUM_FLAGS=--disable-software-rasterizer --disable-dev-shm-usage
+    security_opt:
+      - seccomp:unconfined
+    shm_size: 2gb
+    profiles:
+      - dev  # Só executa quando especificado
+    command: ["pnpm", "run", "dev"]
+
+# Volumes nomeados (opcional)
+volumes:
+  output_data:
+    driver: local
+  logs_data:
+    driver: local
+
+# Rede personalizada (opcional)
+networks:
+  sigaa_network:
+    driver: bridge

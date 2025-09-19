@@ -12,6 +12,12 @@ export function ensureDirectoryExistence(dirPath: string): void {
 export function saveScreenshot(page: Page, filename: string): Promise<Uint8Array> {
     const screenshotsDir = path.resolve(process.cwd(), PATHS.screenshots);
     ensureDirectoryExistence(screenshotsDir);
+    
+    const validExtensions = ['.png', '.jpeg', '.webp'];
+    const hasValidExtension = validExtensions.some(ext => filename.toLowerCase().endsWith(ext));
+    const finalFilename = hasValidExtension ? filename : `${filename}.png`;
+    
+    const screenshotPath = path.join(screenshotsDir, finalFilename) as `${string}.png` | `${string}.jpeg` | `${string}.webp`;
 
-    return page.screenshot({ path: path.join(screenshotsDir, filename) });
+    return page.screenshot({ path: screenshotPath });
 }

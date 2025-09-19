@@ -1,6 +1,6 @@
-import type { PuppeteerLaunchOptions } from 'puppeteer';
+import type {  LaunchOptions } from 'puppeteer';
 
-export const PUPPETEER_OPTIONS: PuppeteerLaunchOptions = {
+export const PUPPETEER_OPTIONS:  LaunchOptions = {
     headless: true, // Defina como false para ver o navegador em ação (útil para depuração)
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   };
