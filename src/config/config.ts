@@ -20,6 +20,14 @@ export const PUPPETEER_OPTIONS:  LaunchOptions = {
     // SIGAA Dashboard Home
     // dashboardHome: '#home',
 
+    // SIGAA Disciplinas do Semestre
+    disciplinasTable: 'table:has(thead tr th:contains("Componente Curricular"))',
+    semestreAtual: 'td[colspan="5"][style*="background: #C8D5EC"]',
+    linhaDisciplina: 'tr.odd, tr:not(.odd):has(td.descricao)',
+    nomeDisciplina: 'td.descricao a',
+    localDisciplina: 'td.info:nth-of-type(2)',
+    horarioDisciplina: 'td.info:nth-of-type(3)',
+
   } as const;
   
   export const PATHS = {
