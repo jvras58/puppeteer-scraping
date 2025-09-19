@@ -18,10 +18,12 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
 WORKDIR /app
 
 COPY package*.json ./
+COPY tsconfig.json ./
 
 RUN npm ci --only=production
 
 COPY . .
 
+RUN npm run build
 
-CMD ["node", "scraping.js"]
+CMD ["node", "dist/index.js"]
