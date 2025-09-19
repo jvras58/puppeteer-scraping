@@ -1,4 +1,4 @@
-import { startBrowser, closeBrowser } from '../config/browser.js';
+import { startBrowser, closeBrowser } from '../adapters/browser/puppeteerClient.js';
 import { logInfo, logError } from './logger.js';
 
 /**

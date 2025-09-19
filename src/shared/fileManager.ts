@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { Page } from 'puppeteer';
-import { PATHS } from '../config/config.js';
+import { PATHS } from './config.js';
 
 export function ensureDirectoryExistence(dirPath: string): void {
     if (!fs.existsSync(dirPath)) {

@@ -1,5 +1,5 @@
 import puppeteer, { type Browser } from 'puppeteer';
-import { PUPPETEER_OPTIONS } from './config.js';
+import { PUPPETEER_OPTIONS } from '../../shared/config.js';
 
 export async function startBrowser(): Promise<Browser> {
   return puppeteer.launch(PUPPETEER_OPTIONS);
