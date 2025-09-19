@@ -1,10 +1,11 @@
+import type { Browser } from 'puppeteer';
 import { startBrowser, closeBrowser } from './config/browser.js';
 import { accessSigaaLoginPage, loginToSigaa } from './scraping/scraper.js';
 import { saveScreenshot } from './utils/fileManager.js';
 import { logInfo, logError } from './utils/logger.js';
 
-(async () => {
-let browser;
+(async (): Promise<void> => {
+let browser: Browser | undefined;
 
 try {
     browser = await startBrowser();
@@ -28,7 +29,7 @@ try {
     logInfo('Captura de tela da tela inicial após login salva como sigaa_tela_inicial.png');
 
 } catch (error) {
-    logError(error);
+    logError(error as Error);
 } finally {
     await closeBrowser(browser);
     logInfo('Navegador fechado.');

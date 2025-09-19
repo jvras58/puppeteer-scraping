@@ -1,7 +1,7 @@
-# Puppeteer - Scrapping - SESSION SIGAA
+# Puppeteer - Scrapping
 
 ## 📖 Sobre o Projeto
-Repositorio 
+
 
 ## 🚀 Tecnologias e Ferramentas
 O projeto foi criado em JavaScript (mas pode ser facilmente convertido para TypeScript) com o Puppeteer e utiliza um Dockerfile para simplificar o uso.
