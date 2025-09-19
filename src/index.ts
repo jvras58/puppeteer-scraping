@@ -1,12 +1,8 @@
-import dotenv from 'dotenv';
 import type { Browser } from 'puppeteer';
 import { startBrowser, closeBrowser } from './adapters/browser/puppeteerClient.js';
 import { SigaaPage } from './adapters/browser/pageObjects/sigaa.page.js';
 import { saveScreenshot } from './shared/fileManager.js';
 import { logInfo, logError } from './shared/logger.js';
-
-// Carregar variáveis de ambiente
-dotenv.config();
 
 (async (): Promise<void> => {
 let browser: Browser | undefined;
