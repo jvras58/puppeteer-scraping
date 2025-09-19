@@ -7,8 +7,9 @@
     // Environment Settings
     "module": "ESNext",
     "target": "ES2022",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "types": ["node"],
+    "lib": ["ES2022", "DOM"],
 
     // Other Outputs
     "sourceMap": true,
@@ -22,8 +23,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "screenshots"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "screenshots",
+    "logs",
+    "output",
+    "docs",
+    "*.config.*",
+    "**/*.test.*",
+    "**/*.spec.*"
+  ]
 }

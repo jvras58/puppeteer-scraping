@@ -1,13 +1,20 @@
+import dotenv from 'dotenv';
 import type { Browser } from 'puppeteer';
 import { startBrowser, closeBrowser } from './adapters/browser/puppeteerClient.js';
 import { SigaaPage } from './adapters/browser/pageObjects/sigaa.page.js';
 import { saveScreenshot } from './shared/fileManager.js';
 import { logInfo, logError } from './shared/logger.js';
 
+// Carregar variáveis de ambiente
+dotenv.config();
+
 (async (): Promise<void> => {
 let browser: Browser | undefined;
 
 try {
+    // Log para verificar se as variáveis de ambiente foram carregadas
+    logInfo(`Variáveis de ambiente carregadas - USERNAME: ${process.env.SIGAA_USERNAME ? 'DEFINIDO' : 'NÃO DEFINIDO'}`);
+    
     browser = await startBrowser();
     const page = await browser.newPage();
     const sigaaPage = new SigaaPage(page);
@@ -20,8 +27,8 @@ try {
     await saveScreenshot(page, 'sigaa_login_inicial.png');
     logInfo('Captura de tela da página de login salva como sigaa_login_inicial.png');
 
-    const username = 'SEU_USUARIO';
-    const password = 'SUA_SENHA';
+    const username = process.env.SIGAA_USERNAME || 'SEU_USUARIO';
+    const password = process.env.SIGAA_PASSWORD || 'SUA_SENHA';
 
     await sigaaPage.login(username, password);
     logInfo('Login realizado com sucesso.');

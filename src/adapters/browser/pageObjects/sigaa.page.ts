@@ -1,7 +1,7 @@
 import type { Page } from 'puppeteer';
 import { URLS, SELECTORS } from '../../../shared/config.js';
 import { logInfo } from '../../../shared/logger.js';
-import { Disciplina, SemestreInfo } from '../../../core/entities/disciplina.js';
+import type { Disciplina, SemestreInfo } from '../../../core/entities/disciplina.js';
 
 export class SigaaPage {
   constructor(private page: Page) {}
@@ -28,7 +28,7 @@ export class SigaaPage {
       // Captura o semestre atual
       const semestreAtual = await this.page.evaluate(() => {
         const elementos = Array.from(document.querySelectorAll('td[colspan="5"]'));
-        const semestreElement = elementos.find(el => 
+        const semestreElement = elementos.find((el: Element) => 
           el.getAttribute('style')?.includes('background: #C8D5EC') && 
           el.textContent?.trim().match(/^\d{4}\.\d$/)
         );
@@ -48,9 +48,9 @@ export class SigaaPage {
         
         // Busca a tabela que contém "Componente Curricular" no cabeçalho
         const tabelas = Array.from(document.querySelectorAll('table'));
-        const tabelaDisciplinas = tabelas.find(tabela => {
+        const tabelaDisciplinas = tabelas.find((tabela: Element) => {
           const headers = tabela.querySelectorAll('th');
-          return Array.from(headers).some(th => th.textContent?.includes('Componente Curricular'));
+          return Array.from(headers).some((th: Element) => th.textContent?.includes('Componente Curricular'));
         });
         
         if (!tabelaDisciplinas) {
@@ -60,7 +60,7 @@ export class SigaaPage {
         // Encontra todas as linhas de disciplinas (que têm td.descricao)
         const linhasDisciplinas = tabelaDisciplinas.querySelectorAll('tr:has(td.descricao)');
         
-        linhasDisciplinas.forEach(linha => {
+        linhasDisciplinas.forEach((linha: Element) => {
           const nomeDisciplinaElement = linha.querySelector('td.descricao a');
           
           // No HTML, a ordem é: td.descricao, td.info (local), td.info (horário)
