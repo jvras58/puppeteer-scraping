@@ -1,11 +1,18 @@
 import { URLS, SELECTORS } from '../config/config.js';
 
-export async function performGoogleSearch(page, query) {
-await page.goto(URLS.google);
-await page.waitForSelector(SELECTORS.searchInput);
+export async function accessSigaaLoginPage(page) {
+  await page.goto(URLS.sigaa);
+  await page.waitForSelector(SELECTORS.loginForm);
+}
 
-await page.type(SELECTORS.searchInput, query);
-await page.keyboard.press('Enter');
-
-await page.waitForSelector(SELECTORS.searchResults);
+export async function loginToSigaa(page, username, password) {
+  await page.type(SELECTORS.userInput, username);
+  await page.type(SELECTORS.passwordInput, password);
+  
+  await page.click(SELECTORS.loginButton);
+  
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+  
+  // Aguarda um pouco mais para garantir que a página inicial carregou
+//   await page.waitForSelector(SELECTORS.dashboardHome);
 }

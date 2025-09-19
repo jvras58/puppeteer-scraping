@@ -4,15 +4,22 @@ export const PUPPETEER_OPTIONS = {
   };
   
   export const URLS = {
-    google: 'https://www.google.com',
+    sigaa: 'https://sigaa.ufpe.br/sigaa/verTelaLogin.do',
   };
   
   export const SELECTORS = {
-    searchInput: '#APjFqb',
-    searchResults: '#search',
+    
+    // SIGAA Login Page
+    loginForm: 'form[name="loginForm"]',
+    userInput: 'input[name="user.login"]',
+    passwordInput: 'input[name="user.senha"]',
+    loginButton: 'input[type="submit"][value="Entrar"]',
+
+    // SIGAA Dashboard Home
+    // dashboardHome: '#home',
+
   };
   
   export const PATHS = {
     screenshots: 'screenshots',
   };
-  

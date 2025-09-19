@@ -1,7 +1,7 @@
-# Puppeteer - Sample
+# Puppeteer - Scrapping - SESSION SIGAA
 
 ## 📖 Sobre o Projeto
-Este projeto é um repositório base para execução de scraping de páginas web com o Puppeteer, utilizando Docker para facilitar a hospedagem e isolamento do ambiente.
+Repositorio 
 
 ## 🚀 Tecnologias e Ferramentas
 O projeto foi criado em JavaScript (mas pode ser facilmente convertido para TypeScript) com o Puppeteer e utiliza um Dockerfile para simplificar o uso.

@@ -1,7 +1,6 @@
 SHEll := /bin/zsh
 
 
-
 scraping:
 	@echo "install dependencies"
 	npm install
