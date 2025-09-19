@@ -44,21 +44,6 @@ Este projeto demonstra como utilizar o **Puppeteer** para automação web, espec
 | **Containerização** | Docker | Latest | Isolamento e portabilidade |
 | **Gerenciador** | pnpm | 9.x | Gerenciamento eficiente de pacotes |
 
-### 📦 Dependências
-
-```json
-{
-  "dependencies": {
-    "puppeteer": "24.22.0"
-  },
-  "devDependencies": {
-    "@types/node": "^24.5.2",
-    "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
-  }
-}
-```
-
 ## 📁 Estrutura do Projeto
 
 ```
